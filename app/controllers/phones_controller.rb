@@ -22,8 +22,6 @@ class PhonesController < ApplicationController
   end
 
   def set_parser
-    #FIXIT
-    return 'errr' unless params[:importer] || all_importers.include?(params[:importer])
     @parser = "::Parsers::#{params[:importer]}".constantize.new
   end
 end
