@@ -15,3 +15,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).bind("ajaxSend", function(){
+   $("#loader").removeClass('hidden');
+ }).bind("ajaxComplete", function(){
+   $("#loader").addClass('hidden');
+ });
