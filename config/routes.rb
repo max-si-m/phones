@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resource :phones, only: [:index] do
+    post '/brands', action: 'brands'
+    post '/models', action: 'models'
+  end
+
+  root 'phones#index'
 end
