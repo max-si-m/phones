@@ -39,6 +39,8 @@ class Parsers::GsmArena < BaseParser
       end
       data_point << { "#{header}": fields }
     end
+    data_point << { title: [@@page.title] }
+    data_point.reverse
   end
 
   private
