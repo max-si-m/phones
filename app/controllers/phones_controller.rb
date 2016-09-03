@@ -1,5 +1,5 @@
 class PhonesController < ApplicationController
-  before_action :set_parser, only: [:brands, :models]
+  before_action :set_parser, only: [:brands, :models, :detail]
   def index
     #TODO: it can load all parsers, but currently it enough
     @importers = all_importers
@@ -13,6 +13,14 @@ class PhonesController < ApplicationController
   def models
     @models = @parser.models(params[:brand])
     render json: @models
+  end
+
+  def detail
+    @phone = @parser.phone_detail(params[:model])
+    respond_to do |format|
+      format.html { render 'detail', layout: false }
+      format.json { render json: @phone }
+    end
   end
 
   private

@@ -11,7 +11,8 @@ class Parsers::GsmArena < BaseParser
   end
 
   def models(brand)
-    @@page = @@agent.click(@@page.link_with(text: /#{brand}/i))
+    @@models_page = @@agent.click(@@page.link_with(text: /#{brand}/i))
+    @@page = @@models_page
     models = []
     path = "//div[contains(@id, 'review-body')]/div/ul/li/a"
     for_each_page do
@@ -20,8 +21,24 @@ class Parsers::GsmArena < BaseParser
     models.flatten
   end
 
-  def phone_data(phone)
+  def phone_detail(model)
+    @@page = @@models_page
+    for_each_page do
+      break if @@page = @@agent.click(@@page.link_with(text: model))
+    end
 
+    # better make some DataPoint class and describe field on there, but it take
+    # more time, for now, array enough
+    data_point = @@page.search("//table").each_with_object([]) do |table, data_point|
+      header = table.search('.//th').text
+      fields = table.search('.//tr').each_with_object({}) do |r, blob|
+        data = r.search('.//td')
+        title = data.first.try(:text)
+        value = data.last.try(:text)
+        blob[title] = value
+      end
+      data_point << { "#{header}": fields }
+    end
   end
 
   private

@@ -16,3 +16,9 @@ $(document).on 'turbolinks:load', ->
         for model in data
           $('#model-select').append $('<option>', value: model, text: model)
     , 'JSON'
+
+  $('#model-select').on 'change', ->
+    importer = $("#importer-select option:selected" ).text()
+    $.post '/phones/detail', { model: @.value, importer: importer }, (data) =>
+      if data != undefined
+        $('#phone-detail').html(data)

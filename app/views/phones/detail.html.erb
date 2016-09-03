@@ -1,0 +1,15 @@
+<div class="jumbotron">
+  <h1>Phone detail</h1>
+  <% @phone.each do |detail| %>
+    <h1>
+      <%= detail.keys.first %>
+    </h1>
+
+    <% detail.values.first.each do |key, value| %>
+    <span>
+      <b><%= key %></b>: <%= value %><br/>
+    <span>
+    <% end %>
+    <hr/>
+  <% end %>
+</div>
