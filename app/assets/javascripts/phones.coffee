@@ -1,6 +1,7 @@
 $(document).on 'turbolinks:load', ->
   $('#importer-select').on 'change', ->
     if @.value != ''
+      $('#data-row').removeClass 'hidden'
       $.post '/phones/brands', { importer: @.value }, (data) =>
         if data != undefined
           $('#brand-select').html ''
