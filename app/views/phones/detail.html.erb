@@ -1,9 +1,9 @@
 <div class="jumbotron">
   <h1>Phone detail</h1>
   <% @phone.each do |detail| %>
-    <h1>
+    <h3>
       <%= detail.keys.first %>
-    </h1>
+    </h3>
 
     <% detail.values.first.each do |key, value| %>
     <span>
