@@ -30,8 +30,8 @@ $(document).on 'turbolinks:load', ->
     query = $("#q").val()
     $.post '/phones/search', { q: query, importer: importer }, (data) =>
       $('#search-btn').removeAttr('data-disable-with').removeAttr('disabled')
-      if data.error == "undefined"
-        return $('#phone-detail').html("<h1>#{data.error}</h1>")
+      if data.error == undefined
+        $('#phone-detail').html(data)
       else
-        return $('#phone-detail').html(data)
+        $('#phone-detail').html("<h1>#{data.error}</h1>")
 
