@@ -29,11 +29,11 @@ class PhonesController < ApplicationController
 
     queries = params[:q].split
     brands = @parser.brands
-    brand = brands.select { |b| include_text?(queries, b) }.try(:first)
+    brand = brands.detect { |b| include_text?(queries, b) }
     respond_with_text('Brand not found') and return unless brand.present?
 
     models = @parser.models(brand)
-    model = models.select { |b| include_text?(queries, b) }.try(:first)
+    model = models.detect { |b| include_text?(queries, b) }
     respond_with_text('Model not found') and return unless model.present?
 
     @phone = @parser.phone_detail(model)
@@ -55,7 +55,7 @@ class PhonesController < ApplicationController
   end
 
   def include_text?(array, text)
-    array.any? { |e| e[/#{text}$/ix].present? }
+    array.any? { |e| e[/#{text}/ix].present? }
   end
 
   def respond_with_text(text)
